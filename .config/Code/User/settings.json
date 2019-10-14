@@ -1,0 +1,8 @@
+{
+    "window.titleBarStyle": "custom",
+    "terminal.integrated.rendererType": "dom",
+    "workbench.colorTheme": "Dracula",
+    "window.zoomLevel": 1,
+    "editor.renderWhitespace": "boundary",
+    "editor.lineNumbers": "relative"
+}
