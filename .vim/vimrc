@@ -1,0 +1,142 @@
+" Change mapleader
+let mapleader = ","
+let maplocalleader = "\\"
+
+set nocompatible
+
+"Visual Settings
+set cursorline " Highlight current line
+set number " Enable line numbers
+set showtabline=2 " Always show tab bar at top of screen
+set showmode " Always show the editing mode
+set relativenumber " User relative line numbers. Current line is still in status bar
+set title " Show the filename in the window titlebar
+set nowrap " Do not wrap lines
+set laststatus=2 " Always show status line
+call matchadd('ColorColumn', '\%81v', 100) " only display columnwidth marker where exceeded
+" set list lcs=trail:·,tab:»·
+set list lcs=trail:·,tab:\|\ 
+set hlsearch " Highligh search results
+set autowrite " autosave when calling :make (ie :GoBuild)
+set encoding=utf8
+set smarttab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set mouse=n
+
+" Set Font 
+if has('gui_running')
+	set guifont=Droid\ Sans\ Mono
+endif
+
+" Automatically Install vim-plug if not already on system
+" see: https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" Plug 'junegunn/vim-easy-align'
+Plug 'altercation/vim-colors-solarized' ", { 'as': 'solarized' }
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'tomasr/molokai', { 'as': 'molokai' }
+Plug 'romainl/flattened'
+
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'ycm-core/YouCompleteMe'
+
+Plug 'mxw/vim-jsx'
+" Plug 'peitalin/vim-jsx-typescript'
+Plug 'pangloss/vim-javascript'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'leafgarland/typescript-vim'
+Plug 'OmniSharp/omnisharp-vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug '/usr/share/doc/fzf/examples/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
+Plug 'junegunn/fzf.vim'
+
+" Any valid git URL is allowed
+"Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Multiple Plug commands can be written in a single line using | separators
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Initialize plugin system
+call plug#end()
+
+" enable fzf vim plugin
+" source /usr/share/doc/fzf/examples/fzf.vim
+
+" NERDTree Settings
+map <C-\> :NERDTreeToggle<CR>
+
+
+" vim-go see https://github.com/golang/tools/blob/master/gopls/doc/vim.md
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+" autocmd FileType go nmap <leader>b <Plug>(go-build)
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports" " this may be slow on large codebases, disalbe and call :GoImports
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+				let l:file = expand('%')
+				if l:file =~# '^\f\+_test\.go$'
+								call go#test#Test(0, 1)
+				elseif l:file =~# '^\f\+\.go$'
+								call go#cmd#Build(0)
+				endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)>
+
+
+" OmniSharp Settings
+filetype indent plugin on
+let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_server_use_mono = 1
+
+
+" Theme / Syntax highlighting
+set t_Co=256
+set background=dark
+
+if !exists("g:syntax_on")
+	syntax enable
+endif
+
+if (has("termguicolors"))
+	" set termguicolors
+endif
+
+" Dracula Theme
+colorscheme dracula
+let g:dracula_colorterm=0
+
+hi CursorLine cterm=NONE ctermbg=black guibg=black
