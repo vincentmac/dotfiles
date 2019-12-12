@@ -22,6 +22,7 @@ PATHDIRS=(
   ${HOME}/.dotnet/tools
   /usr/local/go/bin
   ${GOPATH}/bin
+  /var/lib/flatpak/exports/bin
 )
 
 for dir in $PATHDIRS; do
@@ -32,7 +33,7 @@ done
 
 export PATH=${paths}${PATH}
 
-#alias bower='noglob bower'
+# export FZF_DEFAULT_COMMAND='ag --ignore node_modules -g'
 
 #alias goapp=${GCLOUD}/platform/google_appengine/goapp
 
