@@ -102,6 +102,10 @@ alias tmux='tmux -2'
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+# Use NeoVim
+if type nvim > /dev/null 2>&1; then
+	alias vim='nvim'
+fi
 
 # Fix for Tilix
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
