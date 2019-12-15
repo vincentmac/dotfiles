@@ -1,7 +1,8 @@
 
 #GO Path
-#export GOPATH=/usr/local/lib/go/
 export GOPATH=$HOME/go
+
+export GIT_EDITOR=vim
 
 # Google Cloud SDK
 #GCLOUD=~/google-cloud-sdk
