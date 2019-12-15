@@ -2,7 +2,9 @@
 #GO Path
 export GOPATH=$HOME/go
 
-export GIT_EDITOR=vim
+# export GIT_EDITOR=vim
+export VISUAL=vim
+export EDITOR="$VISUAL"
 
 # Google Cloud SDK
 #GCLOUD=~/google-cloud-sdk
