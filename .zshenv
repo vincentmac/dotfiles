@@ -26,6 +26,7 @@ PATHDIRS=(
   /usr/local/go/bin
   ${GOPATH}/bin
   /var/lib/flatpak/exports/bin
+  ${HOME}/.cargo/bin
 )
 
 for dir in $PATHDIRS; do
