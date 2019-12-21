@@ -38,6 +38,8 @@ done
 export PATH=${paths}${PATH}
 
 # export FZF_DEFAULT_COMMAND='ag --ignore node_modules -g'
+export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 #alias goapp=${GCLOUD}/platform/google_appengine/goapp
 

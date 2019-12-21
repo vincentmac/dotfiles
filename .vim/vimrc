@@ -68,6 +68,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'leafgarland/typescript-vim'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'jparise/vim-graphql'
 " Plug 'ctrlpvim/ctrlp.vim'
 " Plug '/usr/share/doc/fzf/examples/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }

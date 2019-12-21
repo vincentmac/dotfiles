@@ -4,5 +4,6 @@
     "workbench.colorTheme": "Dracula",
     "window.zoomLevel": 1,
     "editor.renderWhitespace": "boundary",
-    "editor.lineNumbers": "relative"
+    "editor.lineNumbers": "relative",
+    "vscode-neovim.neovimPath": "/usr/bin/nvim"
 }
