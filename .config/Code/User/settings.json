@@ -5,5 +5,7 @@
     "window.zoomLevel": 1,
     "editor.renderWhitespace": "boundary",
     "editor.lineNumbers": "relative",
-    "vscode-neovim.neovimPath": "/usr/bin/nvim"
+    "vscode-neovim.neovimPath": "/usr/bin/nvim",
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true
 }
