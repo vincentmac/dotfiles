@@ -1,6 +1,7 @@
 
 #GO Path
 export GOPATH=$HOME/go
+# export GO111MODULE="on"
 
 # export GIT_EDITOR=vim
 export VISUAL=vim
