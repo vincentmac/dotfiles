@@ -136,6 +136,10 @@ filetype indent plugin on
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_server_use_mono = 1
 
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
+
+
 " vim-airline settings
 let g:airline#extensions#tabline#enabled = 1
 " let g:airline_powerline_fonts = 1

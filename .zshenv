@@ -22,6 +22,7 @@ PATHDIRS=(
  # /usr/local/lib
  # /usr/local/cassandra/bin
  # /usr/local/mongodb/bin
+  /snap/bin
   ${HOME}/.local/bin
   ${HOME}/.dotnet/tools
   /usr/local/go/bin
