@@ -1,7 +1,3 @@
-" set runtimepath^=~/.vim runtimepath+=~/.vim/after
-" let &packpath = &runtimepath
-" source ~/.vim/vimrc
-
 " Change mapleader
 let mapleader = ","
 let maplocalleader = "\\"
@@ -227,11 +223,11 @@ colorscheme nord
 
 " colorscheme solarized
 
-hi CursorLine cterm=NONE ctermbg=black guibg=black
+" hi CursorLine cterm=NONE ctermbg=black guibg=black
 
 "-------------------------------------------------------------------------------
 " Here forward is not mine
-inoremap jk <ESC>
+" inoremap jk <ESC>
 
 " nmap <C-n> :NERDTreeToggle<CR>
 " vmap ++ <plug>NERDCommenterToggle
@@ -242,51 +238,29 @@ inoremap jk <ESC>
 "autocmd VimEnter * NERDTree
 
 let g:NERDTreeGitStatusWithFlags = 1
-let g:NERDTreeIgnore = ['^node_modules$']
+" let g:NERDTreeIgnore = ['^node_modules$']
 
 " vim-prettier
 " prettier command for coc
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " j/k will move virtual lines (lines that wrap)
-noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-
-" set cindent
-" set expandtab
-
-
-" sync open file with NERDTree
-" " Check if NERDTree is open or active
-function! IsNERDTreeOpen()        
-  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-endfunction
-
-" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
-" file, and we're not in vimdiff
-function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeFind
-    wincmd p
-  endif
-endfunction
-
-" Highlight currently open buffer in NERDTree
-autocmd BufEnter * call SyncTree()
+" noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+" noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 "-------------------------------------------------------------------------------
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
-  \ 'coc-json', 
+  \ 'coc-json',
   \ 'coc-pairs',
   \ 'coc-html',
   \ 'coc-snippets',
   \ ]
 
-  " \ 'coc-eslint', 
-  " \ 'coc-prettier', 
-  
+  " \ 'coc-eslint',
+  " \ 'coc-prettier',
+
 " if hidden is not set, TextEdit might fail.
 set hidden
 
