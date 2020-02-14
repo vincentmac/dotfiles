@@ -60,7 +60,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'ycm-core/YouCompleteMe'
+Plug 'prettier/vim-prettier', {
+	\ 'do': 'yarn install',
+	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'pangloss/vim-javascript'
@@ -69,8 +71,6 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'jparise/vim-graphql'
-" Plug 'ctrlpvim/ctrlp.vim'
-" Plug '/usr/share/doc/fzf/examples/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
 Plug 'junegunn/fzf.vim'
 
@@ -90,6 +90,11 @@ call plug#end()
 " NERDTree Settings
 map <C-\> :NERDTreeToggle<CR>
 
+" map fzf to ctrl-p
+map <C-p> :FZF<CR>
+
+" clear the last search pattern (highlight) with ctrl+/
+nnoremap <silent> <C-_> :let @/ = ""<CR>
 
 " vim-go see https://github.com/golang/tools/blob/master/gopls/doc/vim.md
 let g:go_def_mode='gopls'
