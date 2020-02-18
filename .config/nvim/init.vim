@@ -43,9 +43,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 " Make sure you use single quotes
 
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 " Plug 'junegunn/vim-easy-align'
-Plug 'altercation/vim-colors-solarized' ", { 'as': 'solarized' }
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tomasr/molokai', { 'as': 'molokai' }
 Plug 'romainl/flattened'
@@ -59,6 +57,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'mileszs/ack.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'prettier/vim-prettier', {
 	\ 'do': 'yarn install',
@@ -74,14 +73,13 @@ Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
 Plug 'junegunn/fzf.vim'
 
-" Any valid git URL is allowed
-"Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
 " Multiple Plug commands can be written in a single line using | separators
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'majutsushi/tagbar'
+Plug 'ternjs/tern_for_vim', {'do': 'yarn install'}
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Initialize plugin system
@@ -95,6 +93,37 @@ map <C-p> :FZF<CR>
 
 " clear the last search pattern (highlight) with ctrl+/
 nnoremap <silent> <C-_> :let @/ = ""<CR>
+
+" ack.vim Settings
+" `!` prevents jumping to first result
+" press `?` for help in quickfix window 
+cnoreabbrev Ack Ack!
+nnoremap <leader>/ :Ack!<Space>
+
+" Tagbar Settings (see https://snapcraft.io/universal-ctags)
+" required installation: `sudo snap install universal-ctags` 
+"   && `sudo snap connect universal-ctags:dot-ctags`
+nmap <C-o> :TagbarToggle<CR>
+" https://github.com/majutsushi/tagbar/wiki#typescript
+let g:tagbar_type_typescript = {
+	\ 'ctagsbin' : 'tstags',
+	\ 'ctagsargs' : '-f-',
+	\ 'kinds': [
+		\ 'e:enums:0:1',
+		\ 'f:function:0:1',
+		\ 't:typealias:0:1',
+		\ 'M:Module:0:1',
+		\ 'I:import:0:1',
+		\ 'i:interface:0:1',
+		\ 'C:class:0:1',
+		\ 'm:method:0:1',
+		\ 'p:property:0:1',
+		\ 'v:variable:0:1',
+		\ 'c:const:0:1',
+	\ ],
+	\ 'sort' : 0
+\ }
+
 
 " vim-go see https://github.com/golang/tools/blob/master/gopls/doc/vim.md
 let g:go_def_mode='gopls'
