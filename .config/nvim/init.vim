@@ -103,7 +103,7 @@ nnoremap <leader>/ :Ack!<Space>
 " Tagbar Settings (see https://snapcraft.io/universal-ctags)
 " required installation: `sudo snap install universal-ctags` 
 "   && `sudo snap connect universal-ctags:dot-ctags`
-nmap <C-o> :TagbarToggle<CR>
+nmap <leader>\ :TagbarToggle<CR>
 " https://github.com/majutsushi/tagbar/wiki#typescript
 let g:tagbar_type_typescript = {
 	\ 'ctagsbin' : 'tstags',
