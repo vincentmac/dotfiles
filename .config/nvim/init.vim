@@ -45,10 +45,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Plug 'junegunn/vim-easy-align'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'tomasr/molokai', { 'as': 'molokai' }
-Plug 'romainl/flattened'
-Plug 'joshdick/onedark.vim'
+" Plug 'tomasr/molokai', { 'as': 'molokai' }
+" Plug 'romainl/flattened'
+" Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'cocopon/iceberg.vim'
+Plug 'tomasiser/vim-code-dark'
 
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'tpope/vim-commentary'
@@ -68,6 +70,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'posva/vim-vue'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
@@ -123,7 +126,9 @@ let g:tagbar_type_typescript = {
 	\ ],
 	\ 'sort' : 0
 \ }
-
+" tagbar/ctags is interfering with ctrl+] (go back from def)
+" see https://stackoverflow.com/questions/5017500/vim-difficulty-setting-up-ctags-source-in-subdirectories-dont-see-tags-file-i
+set tags=./tags,./TAGS,tags;~,TAGS;~
 
 " vim-go see https://github.com/golang/tools/blob/master/gopls/doc/vim.md
 let g:go_def_mode='gopls'
@@ -152,13 +157,26 @@ autocmd FileType go nmap <leader>ga <Plug>(go-alternate-edit)
 autocmd FileType go nmap <leader>gah <Plug>(go-alternate-split)
 autocmd FileType go nmap <leader>gav <Plug>(go-alternate-vertical)
 
+" Debugging 
+" autocmd FileType go nmap <leader>db :GoDebugBreakpoint<CR>
+autocmd FileType go nmap <F9> :GoDebugBreakpoint<CR>
+autocmd FileType go nmap <leader>ds :GoDebugStart<CR>
+autocmd FileType go nmap <leader>dt :GoDebugTest<CR>
+autocmd FileType go nmap <leader>dn :GoDebugNext<CR>
+autocmd FileType go nmap <leader>dq :GoDebugStop<CR>
+
 " go syntax highlighting
 let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
-let g:go_highlight_functions_calls = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_methods_calls = 1
+let g:go_highlight_method_calls = 1
 let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
 let g:go_def_mapping_enabled = 0 " delegate to CoC
 let g:go_auto_type_info = 1
 
@@ -204,6 +222,7 @@ au BufNewFile,BufRead *.prisma setfiletype graphql
 
 " vim-jsx-typescript Settins
 " set filetypes as typescript.tsx
+" autocmd BufNewFile,BufRead *.tsx,*.jsx,*.ts set filetype=typescript.tsx
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 " dark red
@@ -215,9 +234,15 @@ hi tsxCloseTag guifg=#F99575
 hi tsxCloseTagName guifg=#F99575
 hi tsxAttributeBraces guifg=#F99575
 hi tsxEqual guifg=#F99575
+hi typescriptDecorators guifg=#D08770
 
 " yellow
 hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+" light-grey
+hi tsxTypeBraces guifg=#999999
+" dark-grey
+hi tsxTypes guifg=#666666
 
 " Theme / Syntax highlighting
 set t_Co=256
@@ -250,6 +275,12 @@ endif
 
 " Nord Vim Theme
 colorscheme nord
+
+" Iceberg Theme
+" colorscheme iceberg
+
+" VS Code Theme
+" colorscheme codedark
 
 " Dracula Theme
 " colorscheme dracula
