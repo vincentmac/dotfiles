@@ -63,7 +63,7 @@ Plug 'mileszs/ack.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'prettier/vim-prettier', {
 	\ 'do': 'yarn install',
-	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'pangloss/vim-javascript'
@@ -71,18 +71,21 @@ Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'posva/vim-vue'
+Plug 'leafOfTree/vim-svelte-plugin'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'delphinus/vim-firestore'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
 Plug 'junegunn/fzf.vim'
 
-" Multiple Plug commands can be written in a single line using | separators
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'majutsushi/tagbar'
 Plug 'ternjs/tern_for_vim', {'do': 'yarn install'}
+Plug 'nvie/vim-flake8'
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Initialize plugin system
@@ -129,6 +132,9 @@ let g:tagbar_type_typescript = {
 " tagbar/ctags is interfering with ctrl+] (go back from def)
 " see https://stackoverflow.com/questions/5017500/vim-difficulty-setting-up-ctags-source-in-subdirectories-dont-see-tags-file-i
 set tags=./tags,./TAGS,tags;~,TAGS;~
+
+let g:vim_svelte_plugin_use_sass = 1
+let g:vim_svelte_plugin_use_typescript = 1
 
 " vim-go see https://github.com/golang/tools/blob/master/gopls/doc/vim.md
 let g:go_def_mode='gopls'
@@ -188,6 +194,11 @@ let g:OmniSharp_server_use_mono = 1
 let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 
+" autocmd FileType python nmap <leader>p :CocCommand python.runLinting<CR>
+let g:flake8_show_in_gutter = 1
+let g:flake8_show_in_file = 1
+
+autocmd FileType python nmap <buffer> <leader>p :call flake8#Flake8()<CR>
 
 " vim-airline settings
 let g:airline#extensions#tabline#enabled = 1
@@ -291,7 +302,6 @@ colorscheme nord
 " hi CursorLine cterm=NONE ctermbg=black guibg=black
 
 "-------------------------------------------------------------------------------
-" Here forward is not mine
 " inoremap jk <ESC>
 
 " nmap <C-n> :NERDTreeToggle<CR>
@@ -322,6 +332,8 @@ let g:coc_global_extensions = [
   \ 'coc-html',
   \ 'coc-css',
   \ 'coc-snippets',
+  \ 'coc-svelte',
+  \ 'coc-pyright',
   \ ]
 
   " \ 'coc-eslint',
@@ -458,5 +470,100 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+
+" markdown preview
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 1
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it can be use in markdown file
+" default: 0
+let g:mkdp_command_for_global = 0
+
+" set to 1, preview server available to others in your network
+" by default, the server listens on localhost (127.0.0.1)
+" default: 0
+let g:mkdp_open_to_the_world = 0
+
+" use custom IP to open preview page
+" useful when you work in remote vim and preview on local browser
+" more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" default empty
+let g:mkdp_open_ip = ''
+
+" specify browser to open preview page
+" default: ''
+" let g:mkdp_browser = 'safari'
+let g:mkdp_browser = 'Google Chrome'
+
+" set to 1, echo preview page url in command line when open preview page
+" default is 0
+let g:mkdp_echo_preview_url = 0
+
+" a custom vim function name to open preview page
+" this function will receive url as param
+" default is empty
+let g:mkdp_browserfunc = ''
+
+" options for markdown render
+" mkit: markdown-it options for render
+" katex: katex options for math
+" uml: markdown-it-plantuml options
+" maid: mermaid options
+" disable_sync_scroll: if disable sync scroll, default 0
+" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+"   middle: mean the cursor position alway show at the middle of the preview page
+"   top: mean the vim top viewport alway show at the top of the preview page
+"   relative: mean the cursor position alway show at the relative positon of the preview page
+" hide_yaml_meta: if hide yaml metadata, default is 1
+" sequence_diagrams: js-sequence-diagrams options
+" content_editable: if enable content editable for preview page, default: v:false
+" disable_filename: if disable filename header for preview page, default: 0
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {'theme': 'simple'},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0
+    \ }
+
+" use a custom markdown style must be absolute path
+" like '/Users/username/markdown.css' or expand('~/markdown.css')
+let g:mkdp_markdown_css = ''
+
+" use a custom highlight style must absolute path
+" like '/Users/username/highlight.css' or expand('~/highlight.css')
+let g:mkdp_highlight_css = ''
+
+" use a custom port to start server or random for empty
+let g:mkdp_port = ''
+
+" preview page title
+" ${name} will be replace with the file name
+let g:mkdp_page_title = '「${name}」'
+
+" recognized filetypes
+" these filetypes will have MarkdownPreview... commands
+let g:mkdp_filetypes = ['markdown']
+
 " jsonc comment highlighting
-autocmd FileType json syntax match Comment +\/\/.\+$
+" autocmd FileType json syntax match Comment +\/\/.\+$
+autocmd FileType javascript,typescript setlocal ts=4 sts=4 sw=4 expandtab

@@ -113,10 +113,17 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 fi
 
 # fzf
-source /usr/share/doc/fzf/examples/key-bindings.zsh
+if [[ `uname` != "Darwin" ]]; then
+	source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+
+
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"
