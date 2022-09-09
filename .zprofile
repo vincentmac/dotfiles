@@ -1,6 +1,6 @@
 
 #GO Path
-export GOPATH=$HOME/go
+# export GOPATH=$HOME/go
 # export GO111MODULE="on"
 
 # export GIT_EDITOR=vim
@@ -15,7 +15,7 @@ export EDITOR="$VISUAL"
 #source '/Users/vincent/google-cloud-sdk/completion.zsh.inc'
 
 # homebrew java sdk
-export CPPFLAGS="-I/usr/local/opt/openjdk/include"
+# export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -23,23 +23,26 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # Add new paths to the PATHDIRS array
-PATHDIRS=(
   #/usr/local/git/bin
  # /usr/local/bin
  # /usr/local/lib
  # /usr/local/cassandra/bin
  # /usr/local/mongodb/bin
-  /snap/bin
+PATHDIRS=(
+  /opt/homebrew/bin
+  # /snap/bin
   ${HOME}/.local/bin
-  ${HOME}/.dotnet/tools
+  # ${HOME}/.dotnet/tools
   /usr/local/go/bin
-  ${GOPATH}/bin
-  /var/lib/flatpak/exports/bin
-  ${HOME}/.cargo/bin
-  ${HOME}/Library/Python/2.7/bin
+  # ${GOPATH}/bin
+  # /var/lib/flatpak/exports/bin
+  # ${HOME}/.cargo/bin
+  # ${HOME}/Library/Python/2.7/bin
+  /opt/homebrew/opt
+  /opt/homebrew/opt/openjdk@11/bin
+  /opt/homebrew/Cellar/git/2.37.3/bin
+  /opt/homebrew/opt/dnsmasq/sbin/dnsmasq
   /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-  /usr/local/Cellar/node/15.2.1/bin
-  /usr/local/opt/openjdk/bin
 )
 
 for dir in $PATHDIRS; do
@@ -48,6 +51,9 @@ for dir in $PATHDIRS; do
   fi
 done
 
+export PATHDIRS
+export PATHOG=${PATH}
+export PATHSNEW=${paths}
 export PATH=${paths}${PATH}
 
 # fzf
